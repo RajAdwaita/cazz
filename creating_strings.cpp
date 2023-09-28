@@ -32,8 +32,32 @@ typedef vector<pl> vpl;
 typedef vector<vi> vvi;
 typedef vector<vl> vvl;
 
+void solve2(int ind, string s, set<string> &ans)
+{
+    if (ind == s.size())
+    {
+        ans.insert(s);
+        return;
+    }
+    for (int i = ind; i < s.size(); i++)
+    {
+        swap(s[i], s[ind]);
+        solve2(ind + 1, s, ans);
+        swap(s[i], s[ind]);
+    }
+}
+
 void solve()
 {
+    string str;
+    cin >> str;
+    set<string> ans;
+    solve2(0, str, ans);
+    cout << ans.size() << endl;
+    for (auto it : ans)
+    {
+        cout << it << '\n';
+    }
 }
 
 int main()

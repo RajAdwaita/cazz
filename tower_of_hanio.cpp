@@ -32,8 +32,21 @@ typedef vector<pl> vpl;
 typedef vector<vi> vvi;
 typedef vector<vl> vvl;
 
+void toh(ll n, ll s, ll d, ll a)
+{
+    if (n == 0)
+        return;
+
+    toh(n - 1, s, a, d);
+    cout << s << " " << d << '\n';
+    toh(n - 1, a, d, s);
+}
 void solve()
 {
+    ll n;
+    cin >> n;
+    cout << pow(2, n) - 1 << '\n';
+    toh(n, 1, 3, 2);
 }
 
 int main()

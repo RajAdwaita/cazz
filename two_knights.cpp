@@ -34,6 +34,15 @@ typedef vector<vl> vvl;
 
 void solve()
 {
+    int i, j, m;
+    ll n;
+    cin >> n;
+    for (int i = 1; i <= n; i++)
+    {
+        ll i2 = (i * i);
+        ll ans = (i2 * (i2 - 1) / 2) - (4 * (i - 1) * (i - 2));
+        cout << ans << '\n';
+    }
 }
 
 int main()
