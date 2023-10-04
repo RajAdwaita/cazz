@@ -34,7 +34,37 @@ typedef vector<vl> vvl;
 
 void solve()
 {
+    ll n;
     ll i;
+
+    ll summ = 0;
+    ll tumm = 0;
+    ll ans = 1e18;
+    cin >> n;
+    vl arr(n);
+    fo(i, n)
+    {
+        cin >> arr[i];
+        summ += arr[i];
+    }
+    // sortall(arr);
+
+    for (ll mask = 0; mask < 1 << n; mask++)
+    {
+        tumm = 0;
+        for (ll i = 0; i < n; i++)
+        {
+            if (mask & 1 << i)
+            {
+                tumm += arr[i];
+            }
+        }
+        if (abs(summ - 2 * tumm) < ans)
+        {
+            ans = abs(summ - 2 * tumm);
+        }
+    }
+    cout << ans << endl;
 }
 
 int main()
