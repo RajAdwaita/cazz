@@ -35,6 +35,24 @@ typedef vector<vl> vvl;
 void solve()
 {
     ll i;
+    ll n;
+    cin >> n;
+    vl arr;
+    for (int i = 0; i < n; i++)
+    {
+        int x;
+        cin >> x;
+        auto it = upper_bound(arr.begin(), arr.end(), x);
+        if (it == arr.end())
+        {
+            arr.push_back(x);
+        }
+        else
+        {
+            *it = x;
+        }
+    }
+    cout << arr.size() << '\n';
 }
 
 int main()

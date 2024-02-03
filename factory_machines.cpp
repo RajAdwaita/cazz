@@ -35,6 +35,14 @@ typedef vector<vl> vvl;
 void solve()
 {
     ll i;
+    ll n, t;
+    cin >> n >> t;
+    vl v(n);
+    for (int i = 0; i < n; i++)
+    {
+        cin >> v[i];
+    }
+    
 }
 
 int main()

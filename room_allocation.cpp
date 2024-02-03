@@ -32,9 +32,48 @@ typedef vector<pl> vpl;
 typedef vector<vi> vvi;
 typedef vector<vl> vvl;
 
+bool static comp(pair<ll, ll> a, pair<ll, ll> b)
+{
+    if (a.second == b.second)
+    {
+        return a.first < b.first;
+    }
+    return a.second < b.second;
+}
+
 void solve()
 {
     ll i;
+    ll n;
+    cin >> n;
+    vector<pair<ll, ll>> vp;
+    for (int i = 0; i < n; i++)
+    {
+        ll a, b;
+        cin >> a >> b;
+        vp.push_back({a, b});
+    }
+    int rooms = 1;
+    sort(begin(vp), end(vp), comp);
+
+    ll st = vp[0].first;
+    ll en = vp[0].second;
+    vector<ll> ans;
+
+    for (int i = 1; i < n; i++)
+    {
+        if (vp[i].first > en)
+        {
+            continue;
+        }
+        else
+        {
+            if (rooms == 1)
+                rooms++;
+            en = vp[i].second;
+        }
+    }
+    cout << rooms;
 }
 
 int main()

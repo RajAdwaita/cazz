@@ -32,15 +32,45 @@ typedef vector<pl> vpl;
 typedef vector<vi> vvi;
 typedef vector<vl> vvl;
 
-void solve()
+int solve(int ind, string ans, string str, vector<string> &arr)
 {
-    ll i;
+    if (ans == str)
+    {
+        return 1;
+    }
+    if (ind == arr.size())
+    {
+        if (ans == str)
+        {
+            return 1;
+        }
+        return 0;
+    }
+    int notTake = solve(ind + 1, ans, str, arr);
+    int take = solve(ind + 1, ans + arr[ind], str, arr);
+    // return max(take, notTake);
+
+    return take + notTake;
 }
 
 int main()
 {
 
-    solve();
+    // solve();
+    // ll i;
+    string str;
+    cin >> str;
+    ll k;
+    cin >> k;
+    vector<string> arr;
+    for (int i = 0; i < k; i++)
+    {
+        string s;
+        cin >> s;
+        arr.pb(s);
+    }
+
+    cout << solve(0, "", str, arr) << '\n';
 
     return 0;
 }

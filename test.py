@@ -1,40 +1,51 @@
-MOD = 1000000007
 
-def count_ways(n, s1, s2):
-    dp = [[[[0 for _ in range(3)] for _ in range(3)] for _ in range(3)] for _ in range(n+1)]
+def find_lcs(s1, s2):
 
-    def rec(row, col, prev, prev_prev):
-        if row == n:
-            return 1
+    n = len(s1)
+    m = len(s2)
+    dp = [[0 for _ in range(m + 1)] for _ in range(n + 1)]
 
-        if dp[row][col][prev][prev_prev] != 0:
-            return dp[row][col][prev][prev_prev]
+    for i in range(1, n + 1):
+        for j in range(1, m + 1):
+            if s1[i - 1] == s2[j - 1]:
+                dp[i][j] = dp[i - 1][j - 1] + 1
+            else:
+                dp[i][j] = max(dp[i][j - 1], dp[i - 1][j])
 
-        ans = 0
-
-        if row == 0:
-            # First row, can use any color
-            for c1 in range(3):
-                for c2 in range(3):
-                    if c1 != c2:
-                        ans += rec(row, col+1, c1, c2)
-                        ans %= MOD
+    lcs = ""
+    i = n
+    j = m
+    while i > 0 and j > 0:
+        if s1[i - 1] == s2[j - 1]:
+            lcs += s1[i - 1]
+            i -= 1
+            j -= 1
+        elif dp[i][j] == dp[i][j - 1]:
+            j -= 1
         else:
-            # For subsequent rows, check the colors of the previous two dominoes and use a different color
-            for c in range(3):
-                if prev != c:
-                    ans += rec(row, col+1, c, prev)
-                    ans %= MOD
+            i -= 1
 
-        dp[row][col][prev][prev_prev] = ans
-        return ans
+    return lcs[::-1]
 
-    return rec(0, 0, 3, 3)  # Start with row 0, col 0, and set the previous and previous_previous colors to invalid (3)
+def minimum_cost_to_make_strings_equal(s1, s2, x):
 
-# Input
-N = int(input())
-S1 = input().strip()
-S2 = input().strip()
+    lcs = find_lcs(s1, s2)
+    cost1 = (len(s1) - len(lcs)) * 1 + (len(s2) - len(lcs)) * 1
+    cost2 = (len(s1) - len(lcs)) * x + (len(s2) - len(lcs)) * 1
+    min_cost = min(cost1, cost2)
+    if min_cost >= x:
+            return -1
+    return min_cost
 
-# Output
-print(count_ways(N, S1, S2))
+
+
+if __name__ == "__main__":
+    s1 = "1100011000"
+    s2 = "0101001010"
+    x = 2
+
+    min_cost = minimum_cost_to_make_strings_equal(s1, s2, x)
+    if min_cost == -1:
+        print("It is impossible to make the two strings equal.")
+    else:
+        print("The minimum cost to make the two strings equal is:", min_cost)

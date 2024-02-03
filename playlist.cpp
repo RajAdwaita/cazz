@@ -35,6 +35,60 @@ typedef vector<vl> vvl;
 void solve()
 {
     ll i;
+    ll n;
+    cin >> n;
+    vl arr(n);
+    fo(i, n)
+    {
+        cin >> arr[i];
+    }
+    ll ans = 0;
+    ll cnt = 0;
+    ll l = 0, r = 0;
+    unordered_map<ll, ll> mp;
+    // vector<int>pos(
+    unordered_map<ll, ll> pos;
+    // )
+    // while (r < n)
+    // {
+    //     if (mp.find(arr[r]) != mp.end())
+    //     {
+    //         l = max(mp[arr[r]] + 1, l);
+    //     }
+    //     mp[arr[r]] = r;
+
+    //     ans = max(ans, r - l + 1);
+    //     r++;
+    // mp[arr[r]]++;
+    // // cnt++;
+
+    // if (mp[arr[r]] > 1)
+    // {
+    //     l = pos[arr[r]] + 1;
+    //     ans = max(ans, r - l + 1);
+    //     mp[arr[r]] = 1;
+    // }
+    // pos[arr[r]] = r;
+    // ans = max(ans, r - l + 1);
+    // r++;
+    // }
+    set<ll> st;
+    while (l < n && r < n)
+    {
+        while (r < n && !st.count(arr[r]))
+        {
+            st.insert(arr[r]);
+            ans = max(ans, r - l + 1);
+            r++;
+        }
+
+        while (r < n && st.count(arr[r]))
+        {
+            st.erase(arr[l]);
+            l++;
+        }
+    }
+    cout << ans << '\n';
 }
 
 int main()

@@ -6,6 +6,7 @@
         "xstring": "cpp",
         "xutility": "cpp",
         "utility": "cpp",
-        "limits": "cpp"
+        "limits": "cpp",
+        "vector": "cpp"
     }
 }

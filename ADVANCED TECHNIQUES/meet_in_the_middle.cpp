@@ -32,9 +32,42 @@ typedef vector<pl> vpl;
 typedef vector<vi> vvi;
 typedef vector<vl> vvl;
 
+int calc(int ind, int x, vector<ll> &arr, vector<vector<ll>> &dp)
+{
+    // if (x == 0)
+    //     return 1;
+    if (ind == arr.size())
+    {
+        if (x == 0)
+            return 1;
+        return 0;
+    }
+    if (x < 0)
+        return 0;
+    if (dp[ind][x] != -1)
+        return dp[ind][x];
+
+    int take = 0;
+    int notTake = calc(ind + 1, x, arr, dp);
+    // if (arr[ind] <= x)
+    // {
+    take = calc(ind + 1, x - arr[ind], arr, dp);
+    // }
+    return dp[ind][x] = take + notTake;
+}
 void solve()
 {
     ll i;
+    ll n, x;
+    cin >> n >> x;
+    vl arr(n, 0);
+    vector<vector<ll>> dp(n + 1, vector<ll>(x + 1, -1));
+    for (int i = 0; i < n; i++)
+    {
+        cin >> arr[i];
+    }
+
+    cout << calc(0, x, arr, dp);
 }
 
 int main()
